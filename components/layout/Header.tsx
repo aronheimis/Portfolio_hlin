@@ -7,7 +7,6 @@ import { motion, AnimatePresence } from 'framer-motion'
 import type { SiteSettings } from '@/types'
 
 const NAV_LINKS = [
-  { href: '/portfolio', label: 'Ljósmyndir' },
   { href: '/services', label: 'Þjónusta' },
   { href: '/about', label: 'Um mig' },
   { href: '/contact', label: 'Hafa samband' },

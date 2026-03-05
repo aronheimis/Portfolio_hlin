@@ -14,28 +14,17 @@ export default function ServicesPreview({ services, galleries }: ServicesPreview
     <section className="py-28 md:py-36">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
 
-        {/* Section header */}
-        <AnimatedSection>
-          <div className="text-center mb-20">
-            <p className="text-xs font-sans tracking-ultra uppercase text-parchment-600 mb-4">
-              Þjónusta
-            </p>
-            <h2 className="font-serif text-4xl md:text-5xl font-light text-parchment-900">
-              Hvernig get ég hjálpað þér?
-            </h2>
-          </div>
-        </AnimatedSection>
-
         {/* Service grid */}
+        <AnimatedSection>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-parchment-200">
-          {services.map((service, i) => {
+          {services.map((service) => {
             const coverGallery = galleries.find(
               (g) => g.serviceCategory === service.value
             )
             const hasImage = !!coverGallery?.coverImage
 
             return (
-              <AnimatedSection key={service.value} delay={i * 0.05}>
+              <div key={service.value} className="contents">
                 <Link
                   href={`/services#${service.value}`}
                   className="group block bg-parchment-50 overflow-hidden"
@@ -74,10 +63,11 @@ export default function ServicesPreview({ services, galleries }: ServicesPreview
                     </p>
                   </div>
                 </Link>
-              </AnimatedSection>
+              </div>
             )
           })}
         </div>
+        </AnimatedSection>
 
         {/* CTA */}
         <AnimatedSection delay={0.3}>

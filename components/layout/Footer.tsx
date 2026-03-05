@@ -24,7 +24,6 @@ export default function Footer({ settings }: FooterProps) {
           {/* Nav */}
           <nav className="flex flex-wrap justify-center gap-x-8 gap-y-3">
             {[
-              { href: '/portfolio', label: 'Ljósmyndir' },
               { href: '/services', label: 'Þjónusta' },
               { href: '/about', label: 'Um mig' },
               { href: '/contact', label: 'Hafa samband' },

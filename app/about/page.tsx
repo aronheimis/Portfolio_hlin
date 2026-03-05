@@ -30,25 +30,8 @@ export default async function AboutPage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
 
-          {/* ── Image ──────────────────────────────────────────────────── */}
-          {hasImage && (
-            <AnimatedSection delay={0.1}>
-              <div className="relative aspect-[3/4] overflow-hidden bg-parchment-100">
-                <Image
-                  src={urlFor(settings!.aboutImage!).width(900).height(1200).fit('crop').auto('format').url()}
-                  alt={`Hlín Guðmundsdóttir, ljósmyndari`}
-                  fill
-                  className="object-cover"
-                  placeholder={settings?.aboutImageLqip ? 'blur' : 'empty'}
-                  blurDataURL={settings?.aboutImageLqip}
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                />
-              </div>
-            </AnimatedSection>
-          )}
-
           {/* ── Text ───────────────────────────────────────────────────── */}
-          <AnimatedSection delay={hasImage ? 0.2 : 0.1} className={!hasImage ? 'lg:col-span-2 max-w-2xl' : ''}>
+          <AnimatedSection delay={0.1}>
             <div className="space-y-8">
               <p className="font-serif text-2xl md:text-3xl font-light leading-relaxed text-parchment-900">
                 {settings?.aboutShort ??
@@ -97,6 +80,29 @@ export default async function AboutPage() {
                     Instagram
                     <span aria-hidden>↗</span>
                   </a>
+                </div>
+              )}
+            </div>
+          </AnimatedSection>
+
+          {/* ── Image (always on right, placeholder if none uploaded) ──── */}
+          <AnimatedSection delay={0.2}>
+            <div className="relative aspect-[3/4] overflow-hidden bg-parchment-100">
+              {hasImage ? (
+                <Image
+                  src={urlFor(settings!.aboutImage!).width(900).height(1200).fit('crop').auto('format').url()}
+                  alt={`Hlín Guðmundsdóttir, ljósmyndari`}
+                  fill
+                  className="object-cover"
+                  placeholder={settings?.aboutImageLqip ? 'blur' : 'empty'}
+                  blurDataURL={settings?.aboutImageLqip}
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
+              ) : (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className="text-parchment-300 text-xs font-sans tracking-widest uppercase">
+                    Mynd bráðum
+                  </span>
                 </div>
               )}
             </div>

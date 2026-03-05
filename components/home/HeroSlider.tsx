@@ -62,8 +62,8 @@ export default function HeroSlider({ photos, name, tagline }: HeroSliderProps) {
               blurDataURL={photo.lqip}
               sizes="100vw"
             />
-            {/* Gradient overlay — subtle warm vignette */}
-            <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/10 to-black/50" />
+            {/* Gradient overlay — warm earthy tint */}
+            <div className="absolute inset-0 bg-gradient-to-b from-amber-950/25 via-amber-900/10 to-amber-950/45" />
           </motion.div>
         ) : (
           /* Placeholder when no photos are in Sanity yet */
