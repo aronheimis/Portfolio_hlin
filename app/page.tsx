@@ -47,7 +47,7 @@ export default async function HomePage() {
       <HeroSlider
         photos={featuredPhotos}
         name={settings?.siteTitle ?? 'Hlín Guðmundsdóttir'}
-        tagline={settings?.tagline ?? 'Ljósmyndari · Reykjavík, Ísland'}
+        tagline={settings?.tagline ?? 'Reykjavík, Ísland'}
       />
       <ServicesPreview services={SERVICES} galleries={galleries} />
     </>

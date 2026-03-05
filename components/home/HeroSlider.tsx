@@ -73,10 +73,19 @@ export default function HeroSlider({ photos, name, tagline }: HeroSliderProps) {
 
       {/* ── Text content ──────────────────────────────────────────────── */}
       <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
+        <motion.p
+          initial={{ opacity: 0, y: 10 }}
+          animate={loaded ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 1.1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          className="text-white/70 text-xs font-sans tracking-ultra uppercase mb-6"
+        >
+          Ljósmyndari
+        </motion.p>
+
         <motion.h1
           initial={{ opacity: 0, y: 28 }}
           animate={loaded ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 1.4, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 1.4, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
           className="font-serif text-white text-5xl sm:text-7xl md:text-8xl font-light tracking-wide"
         >
           {name}
