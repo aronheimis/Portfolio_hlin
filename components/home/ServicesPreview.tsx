@@ -14,9 +14,16 @@ export default function ServicesPreview({ services, galleries }: ServicesPreview
     <section className="py-28 md:py-36">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
 
+        {/* Section label */}
+        <AnimatedSection duration={1.1}>
+          <p className="text-xs font-sans tracking-ultra uppercase text-parchment-600 mb-10 text-center">
+            Þjónusta
+          </p>
+        </AnimatedSection>
+
         {/* Service grid */}
-        <AnimatedSection>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-parchment-200">
+        <AnimatedSection duration={1.2} delay={0.1}>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
           {services.map((service) => {
             const coverGallery = galleries.find(
               (g) => g.serviceCategory === service.value
@@ -24,11 +31,11 @@ export default function ServicesPreview({ services, galleries }: ServicesPreview
             const hasImage = !!coverGallery?.coverImage
 
             return (
-              <div key={service.value} className="contents">
-                <Link
-                  href={`/services#${service.value}`}
-                  className="group block bg-parchment-50 overflow-hidden"
-                >
+              <Link
+                key={service.value}
+                href={`/services#${service.value}`}
+                className="group block bg-parchment-100 overflow-hidden"
+              >
                   {/* Thumbnail */}
                   <div className="relative aspect-square overflow-hidden bg-parchment-100">
                     {hasImage ? (
@@ -62,8 +69,7 @@ export default function ServicesPreview({ services, galleries }: ServicesPreview
                       {service.label}
                     </p>
                   </div>
-                </Link>
-              </div>
+              </Link>
             )
           })}
         </div>

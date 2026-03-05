@@ -112,6 +112,34 @@ export async function getAllGalleries(): Promise<Gallery[]> {
   return result ?? []
 }
 
+export async function getGalleriesWithPhotos(): Promise<Gallery[]> {
+  const result = await safeFetch<Gallery[]>(
+    `*[_type == "gallery"] | order(order asc, publishedAt desc) {
+      _id,
+      title,
+      slug,
+      coverImage { ${IMAGE_FIELDS} },
+      "coverLqip": coverImage.asset->metadata.lqip,
+      description,
+      serviceCategory,
+      featured,
+      order,
+      "photos": photos[]->{
+        _id,
+        title,
+        image { ${IMAGE_FIELDS} },
+        "lqip": image.asset->metadata.lqip,
+        alt,
+        caption,
+        order,
+      },
+    }`,
+    {},
+    { next: { tags: ['gallery', 'photo'] } }
+  )
+  return result ?? []
+}
+
 export async function getGalleriesByCategory(category: string): Promise<Gallery[]> {
   const result = await safeFetch<Gallery[]>(
     `*[_type == "gallery" && serviceCategory == $category] | order(order asc, publishedAt desc) {

@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { getAllGalleries } from '@/lib/sanity/queries'
+import { getGalleriesWithPhotos } from '@/lib/sanity/queries'
 import PageHeader from '@/components/ui/PageHeader'
 import AnimatedSection from '@/components/ui/AnimatedSection'
 import ServiceSection from '@/components/services/ServiceSection'
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 }
 
 export default async function ServicesPage() {
-  const galleries = await getAllGalleries()
+  const galleries = await getGalleriesWithPhotos()
 
   return (
     <>
