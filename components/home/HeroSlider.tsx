@@ -73,35 +73,26 @@ export default function HeroSlider({ photos, name, tagline }: HeroSliderProps) {
 
       {/* ── Text content ──────────────────────────────────────────────── */}
       <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
-        <motion.p
-          initial={{ opacity: 0, y: 6 }}
-          animate={loaded ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 1, delay: 0.4, ease: [0.4, 0, 0.2, 1] }}
-          className="text-white/70 text-xs font-sans tracking-ultra uppercase mb-6"
-        >
-          Ljósmyndari
-        </motion.p>
-
         <motion.h1
-          initial={{ opacity: 0, y: 16 }}
+          initial={{ opacity: 0, y: 28 }}
           animate={loaded ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 1.1, delay: 0.6, ease: [0.4, 0, 0.2, 1] }}
+          transition={{ duration: 1.4, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
           className="font-serif text-white text-5xl sm:text-7xl md:text-8xl font-light tracking-wide"
         >
           {name}
         </motion.h1>
 
         <motion.div
-          initial={{ scaleX: 0 }}
-          animate={loaded ? { scaleX: 1 } : {}}
-          transition={{ duration: 0.8, delay: 1.0, ease: [0.4, 0, 0.2, 1] }}
+          initial={{ scaleX: 0, opacity: 0 }}
+          animate={loaded ? { scaleX: 1, opacity: 1 } : {}}
+          transition={{ duration: 1.0, delay: 0.9, ease: [0.16, 1, 0.3, 1] }}
           className="w-16 h-px bg-white/50 my-6 origin-center"
         />
 
         <motion.p
-          initial={{ opacity: 0 }}
-          animate={loaded ? { opacity: 1 } : {}}
-          transition={{ duration: 1, delay: 1.1, ease: [0.4, 0, 0.2, 1] }}
+          initial={{ opacity: 0, y: 8 }}
+          animate={loaded ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 1.1, delay: 1.1, ease: [0.16, 1, 0.3, 1] }}
           className="text-white/75 text-xs font-sans tracking-widest uppercase"
         >
           {tagline}
@@ -112,7 +103,7 @@ export default function HeroSlider({ photos, name, tagline }: HeroSliderProps) {
       <motion.div
         initial={{ opacity: 0 }}
         animate={loaded ? { opacity: 1 } : {}}
-        transition={{ duration: 1, delay: 1.6 }}
+        transition={{ duration: 1.2, delay: 1.8 }}
         className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3"
         aria-hidden
       >
