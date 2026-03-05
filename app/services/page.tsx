@@ -1,8 +1,9 @@
 import type { Metadata } from 'next'
-import { getGalleriesWithPhotos } from '@/lib/sanity/queries'
+import { getGalleriesWithPhotos, getServiceDescriptions } from '@/lib/sanity/queries'
 import PageHeader from '@/components/ui/PageHeader'
 import AnimatedSection from '@/components/ui/AnimatedSection'
 import ServiceSection from '@/components/services/ServiceSection'
+import ServicesNav from '@/components/services/ServicesNav'
 import { SERVICES } from '@/types'
 
 export const metadata: Metadata = {
@@ -11,23 +12,30 @@ export const metadata: Metadata = {
 }
 
 export default async function ServicesPage() {
-  const galleries = await getGalleriesWithPhotos()
+  const [galleries, serviceDescriptions] = await Promise.all([
+    getGalleriesWithPhotos(),
+    getServiceDescriptions(),
+  ])
 
   return (
     <>
-      <PageHeader
-        title="Þjónusta"
-        subtitle="Hvernig get ég hjálpað þér?"
-      />
+      <PageHeader title="Þjónusta" />
 
-      <div className="max-w-7xl mx-auto px-6 lg:px-12 pb-20 space-y-16 md:space-y-32">
+      {/* Sticky scroll-navigation — shows all service categories */}
+      <ServicesNav services={SERVICES} />
+
+      <div className="max-w-7xl mx-auto px-6 lg:px-12 pb-20 space-y-16 md:space-y-32 mt-16 md:mt-24">
         {SERVICES.map((service, i) => {
           const serviceGalleries = galleries.filter(
             (g) => g.serviceCategory === service.value
           )
           return (
             <AnimatedSection key={service.value} delay={i * 0.05}>
-              <ServiceSection service={service} galleries={serviceGalleries} />
+              <ServiceSection
+                service={service}
+                galleries={serviceGalleries}
+                description={serviceDescriptions[service.value]}
+              />
             </AnimatedSection>
           )
         })}

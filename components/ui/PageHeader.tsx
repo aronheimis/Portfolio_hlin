@@ -18,7 +18,7 @@ export default function PageHeader({ title, subtitle }: PageHeaderProps) {
           <h1 className="font-serif text-5xl md:text-7xl font-light tracking-wide text-parchment-900">
             {title}
           </h1>
-          <div className="w-12 h-px bg-parchment-600 mt-6" />
+
         </AnimatedSection>
       </div>
     </div>

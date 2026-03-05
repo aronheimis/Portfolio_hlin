@@ -1,5 +1,5 @@
 import { client } from './client'
-import type { Photo, Gallery, SiteSettings } from '@/types'
+import type { Photo, Gallery, SiteSettings, ServiceCategoryValue } from '@/types'
 
 // ─── Image fragment ──────────────────────────────────────────────────────────
 
@@ -187,6 +187,28 @@ export async function getGalleryBySlug(slug: string): Promise<Gallery | null> {
     { slug },
     { next: { tags: ['gallery', `gallery-${slug}`] } }
   )
+}
+
+// ─── Service category descriptions ───────────────────────────────────────────
+
+/**
+ * Returns a map of serviceCategory value → description from Sanity.
+ * Falls back to an empty object if no documents exist yet.
+ */
+export async function getServiceDescriptions(): Promise<
+  Partial<Record<ServiceCategoryValue, string>>
+> {
+  const result = await safeFetch<Array<{ value: string; description?: string }>>(
+    `*[_type == "serviceCategory"] { value, description }`,
+    {},
+    { next: { tags: ['serviceCategory'] } }
+  )
+  if (!result) return {}
+  return Object.fromEntries(
+    result
+      .filter((item) => item.value && item.description)
+      .map((item) => [item.value, item.description!])
+  ) as Partial<Record<ServiceCategoryValue, string>>
 }
 
 // ─── Static paths ─────────────────────────────────────────────────────────────

@@ -52,7 +52,7 @@ export default async function RootLayout({
   return (
     <html
       lang="is"
-      className={`${cormorant.variable} ${dmSans.variable}`}
+      className={`${cormorant.variable} ${dmSans.variable} scroll-smooth`}
     >
       <body className="min-h-screen flex flex-col bg-parchment-50 text-parchment-900">
         <SiteChrome settings={settings}>

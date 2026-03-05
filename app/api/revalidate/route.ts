@@ -20,6 +20,8 @@ export async function POST(req: NextRequest) {
       revalidateTag('photo')
     } else if (docType === 'siteSettings') {
       revalidateTag('siteSettings')
+    } else if (docType === 'serviceCategory') {
+      revalidateTag('serviceCategory')
     } else {
       // Unknown type — revalidate everything
       revalidateTag('photo')

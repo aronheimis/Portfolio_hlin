@@ -58,7 +58,7 @@ export default async function GalleryPage({ params }: Props) {
             <h1 className="font-serif text-5xl md:text-6xl font-light tracking-wide text-parchment-900 mb-4">
               {gallery.title}
             </h1>
-            <div className="w-12 h-px bg-parchment-600 mb-6" />
+
             {gallery.description && (
               <p className="max-w-xl font-sans text-base leading-relaxed text-parchment-700">
                 {gallery.description}

@@ -25,7 +25,7 @@ export default async function AboutPage() {
           <h1 className="font-serif text-5xl md:text-7xl font-light tracking-wide text-parchment-900 mb-4">
             Um mig
           </h1>
-          <div className="w-12 h-px bg-parchment-600 mb-16" />
+          <div className="w-12 h-px bg-parchment-700 mb-16" />
         </AnimatedSection>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
