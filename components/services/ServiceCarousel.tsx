@@ -99,11 +99,6 @@ export default function ServiceCarousel({ photos, serviceLabel }: ServiceCarouse
                 placeholder={photo.lqip ? 'blur' : 'empty'}
                 blurDataURL={photo.lqip}
               />
-              {photo.caption && (
-                <p className="mt-2 text-xs font-sans text-parchment-500 leading-relaxed" style={{ width: displayWidth }}>
-                  {photo.caption}
-                </p>
-              )}
             </div>
           )
         })}

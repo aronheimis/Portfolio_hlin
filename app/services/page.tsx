@@ -20,7 +20,7 @@ export default async function ServicesPage() {
         subtitle="Hvernig get ég hjálpað þér?"
       />
 
-      <div className="max-w-7xl mx-auto px-6 lg:px-12 pb-32 space-y-32">
+      <div className="max-w-7xl mx-auto px-6 lg:px-12 pb-20 space-y-16 md:space-y-32">
         {SERVICES.map((service, i) => {
           const serviceGalleries = galleries.filter(
             (g) => g.serviceCategory === service.value

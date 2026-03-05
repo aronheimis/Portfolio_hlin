@@ -45,7 +45,7 @@ export default function Header({ settings }: HeaderProps) {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${headerBg}`}
+      className={`fixed top-0 left-0 right-0 z-50 ${scrolled ? 'transition-all duration-500' : 'transition-none'} ${headerBg}`}
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-12 h-16 md:h-20 flex items-center justify-between">
 
