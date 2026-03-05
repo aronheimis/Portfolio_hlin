@@ -8,6 +8,7 @@ import type { SiteSettings } from '@/types'
 
 const NAV_LINKS = [
   { href: '/services', label: 'Þjónusta' },
+  { href: '/verdskra', label: 'Verðskrá' },
   { href: '/about', label: 'Um mig' },
   { href: '/contact', label: 'Hafa samband' },
 ]

@@ -3,6 +3,19 @@
 import { useState, useEffect, useRef } from 'react'
 import type { ServiceCategory } from '@/types'
 
+/** Walk the offsetParent chain to get an element's distance from the page top.
+ *  Unlike getBoundingClientRect, this is unaffected by scroll position or
+ *  any smooth-scroll animation currently in progress. */
+function getDocumentTop(el: HTMLElement): number {
+  let top = 0
+  let node: HTMLElement | null = el
+  while (node) {
+    top += node.offsetTop
+    node = node.offsetParent as HTMLElement | null
+  }
+  return top
+}
+
 interface ServicesNavProps {
   services: ServiceCategory[]
 }
@@ -50,13 +63,15 @@ export default function ServicesNav({ services }: ServicesNavProps) {
     const el = document.getElementById(value)
     if (!el) return
 
-    // Measure the actual bottom edge of the sticky nav at click time so the
-    // scroll offset is always exact regardless of nav height (1 or 2 rows).
-    const navBottom = navRef.current?.getBoundingClientRect().bottom ?? 120
-    const elTop = el.getBoundingClientRect().top
-    const scrollTarget = window.scrollY + elTop - navBottom - 16 // 16px breathing room
+    // Use absolute document positions (walk the offsetParent chain) so the
+    // calculation is unaffected by any smooth-scroll animation already in progress.
+    const elDocTop = getDocumentTop(el)
 
-    window.scrollTo({ top: scrollTarget, behavior: 'smooth' })
+    // Fixed header height + sticky nav height (works for 1-row or 2-row nav).
+    const headerH = document.querySelector('header')?.offsetHeight ?? 80
+    const navH = navRef.current?.offsetHeight ?? 52
+
+    window.scrollTo({ top: elDocTop - headerH - navH - 16, behavior: 'smooth' })
     setActive(value)
   }
 

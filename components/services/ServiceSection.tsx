@@ -1,5 +1,6 @@
 import type { ServiceCategory, Gallery, Photo } from '@/types'
 import ServiceCarousel from './ServiceCarousel'
+import ServiceSectionActions from './ServiceSectionActions'
 
 interface ServiceSectionProps {
   service: ServiceCategory
@@ -8,9 +9,14 @@ interface ServiceSectionProps {
   description?: string
 }
 
+const PREVIEW_LIMIT = 6
+
 export default function ServiceSection({ service, galleries, description }: ServiceSectionProps) {
   // Flatten all photos from every gallery in this service category
-  const photos: Photo[] = galleries.flatMap((g) => g.photos ?? [])
+  const allPhotos: Photo[] = galleries.flatMap((g) => g.photos ?? [])
+
+  // Show up to 6 photos in the services-page carousel; full set lives on the subpage
+  const previewPhotos = allPhotos.slice(0, PREVIEW_LIMIT)
 
   // Use Sanity description if available, fall back to hardcoded default
   const displayDescription = description ?? service.description
@@ -30,8 +36,11 @@ export default function ServiceSection({ service, galleries, description }: Serv
         )}
       </div>
 
-      {/* Photo carousel */}
-      <ServiceCarousel photos={photos} serviceLabel={service.label} />
+      {/* Photo carousel — capped at 6 photos */}
+      <ServiceCarousel photos={previewPhotos} serviceLabel={service.label} />
+
+      {/* "Sjá meira" + "Verð" actions (client — modal lives here) */}
+      <ServiceSectionActions serviceSlug={service.value} />
     </section>
   )
 }

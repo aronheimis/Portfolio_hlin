@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import type { SiteSettings } from '@/types'
+import CookieSettingsButton from './CookieSettingsButton'
 
 interface FooterProps {
   settings: SiteSettings | null
@@ -69,6 +70,25 @@ export default function Footer({ settings }: FooterProps) {
           <p className="text-xs font-sans text-parchment-400 tracking-wide">
             © {year} {settings?.siteTitle ?? 'Hlín Guðmundsdóttir'}. Öll réttindi áskilin.
           </p>
+
+          {/* Legal & cookie links */}
+          <div className="mt-3 flex flex-wrap justify-center items-center gap-x-5 gap-y-2">
+            {[
+              { href: '/personuvernd', label: 'Persónuverndarstefna' },
+              { href: '/cookies', label: 'Cookie-stefna' },
+              { href: '/skilmalar', label: 'Skilmálar' },
+            ].map(({ href, label }) => (
+              <Link
+                key={href}
+                href={href}
+                className="text-[11px] font-sans text-parchment-300 hover:text-parchment-500 transition-colors duration-200 tracking-wide"
+              >
+                {label}
+              </Link>
+            ))}
+            <span className="text-parchment-200 select-none" aria-hidden>·</span>
+            <CookieSettingsButton />
+          </div>
         </div>
       </div>
     </footer>

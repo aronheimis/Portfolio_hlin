@@ -3,6 +3,7 @@
 import { usePathname } from 'next/navigation'
 import Header from './Header'
 import Footer from './Footer'
+import CookieBanner from './CookieBanner'
 import type { SiteSettings } from '@/types'
 
 export default function SiteChrome({
@@ -22,6 +23,7 @@ export default function SiteChrome({
       <Header settings={settings} />
       <main className="flex-1">{children}</main>
       <Footer settings={settings} />
+      <CookieBanner />
     </>
   )
 }
