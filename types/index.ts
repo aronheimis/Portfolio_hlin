@@ -105,6 +105,11 @@ export interface Photo {
   slug: { current: string }
   image: SanityImage
   lqip?: string
+  dimensions?: {
+    width: number
+    height: number
+    aspectRatio: number
+  }
   alt: string
   caption?: string
   location?: string

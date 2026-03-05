@@ -6,6 +6,8 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { urlFor } from '@/lib/sanity/image'
 import type { Photo } from '@/types'
 
+const DISPLAY_HEIGHT = 520 // px — all images share this height
+
 interface ServiceCarouselProps {
   photos: Photo[]
   serviceLabel: string
@@ -17,28 +19,29 @@ export default function ServiceCarousel({ photos, serviceLabel }: ServiceCarouse
   const [canPrev, setCanPrev] = useState(false)
   const [canNext, setCanNext] = useState(true)
 
-  const updateButtons = useCallback(() => {
+  const updateState = useCallback(() => {
     const track = trackRef.current
     if (!track) return
     const { scrollLeft, scrollWidth, clientWidth } = track
     setCanPrev(scrollLeft > 4)
     setCanNext(scrollLeft < scrollWidth - clientWidth - 4)
+    // Approximate current index using first child width
     const firstChild = track.children[0] as HTMLElement | undefined
-    const itemWidth = firstChild ? firstChild.offsetWidth + 16 : 1 // 16 = gap-4
+    const itemWidth = firstChild ? firstChild.offsetWidth + 16 : 1
     setCurrent(Math.round(scrollLeft / itemWidth))
   }, [])
 
   useEffect(() => {
     const track = trackRef.current
     if (!track) return
-    updateButtons()
-    track.addEventListener('scroll', updateButtons, { passive: true })
-    window.addEventListener('resize', updateButtons)
+    updateState()
+    track.addEventListener('scroll', updateState, { passive: true })
+    window.addEventListener('resize', updateState)
     return () => {
-      track.removeEventListener('scroll', updateButtons)
-      window.removeEventListener('resize', updateButtons)
+      track.removeEventListener('scroll', updateState)
+      window.removeEventListener('resize', updateState)
     }
-  }, [updateButtons])
+  }, [updateState])
 
   const scroll = (dir: 'prev' | 'next') => {
     const track = trackRef.current
@@ -50,7 +53,7 @@ export default function ServiceCarousel({ photos, serviceLabel }: ServiceCarouse
 
   if (!photos.length) {
     return (
-      <div className="h-80 flex items-center justify-center bg-parchment-100">
+      <div className="h-80 flex items-center justify-center">
         <p className="text-parchment-400 text-xs font-sans tracking-widest uppercase">
           Myndir bráðum
         </p>
@@ -66,36 +69,34 @@ export default function ServiceCarousel({ photos, serviceLabel }: ServiceCarouse
         className="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory"
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
       >
-        {photos.map((photo) => (
-          <div
-            key={photo._id}
-            className="flex-none w-[78vw] sm:w-[44vw] lg:w-[28vw] snap-start"
-          >
-            <div className="relative aspect-[3/4] overflow-hidden bg-parchment-100">
+        {photos.map((photo) => {
+          // Use real aspect ratio from Sanity metadata; fall back to 3:4 portrait
+          const ratio = photo.dimensions?.aspectRatio ?? 0.75
+          const displayWidth = Math.round(DISPLAY_HEIGHT * ratio)
+
+          return (
+            <div key={photo._id} className="flex-none snap-start">
               <Image
                 src={urlFor(photo.image)
-                  .width(900)
-                  .height(1200)
-                  .fit('crop')
+                  .height(DISPLAY_HEIGHT * 2)
                   .auto('format')
                   .url()}
                 alt={photo.alt || photo.title || serviceLabel}
-                fill
-                className="object-cover transition-transform duration-700 hover:scale-[1.03]"
+                width={displayWidth}
+                height={DISPLAY_HEIGHT}
+                className="block"
+                style={{ height: DISPLAY_HEIGHT, width: displayWidth }}
                 placeholder={photo.lqip ? 'blur' : 'empty'}
                 blurDataURL={photo.lqip}
-                sizes="(max-width: 640px) 78vw, (max-width: 1024px) 44vw, 28vw"
               />
+              {photo.caption && (
+                <p className="mt-2 text-xs font-sans text-parchment-500 leading-relaxed" style={{ width: displayWidth }}>
+                  {photo.caption}
+                </p>
+              )}
             </div>
-            {photo.caption && (
-              <p className="mt-2 text-xs font-sans text-parchment-500 leading-relaxed">
-                {photo.caption}
-              </p>
-            )}
-          </div>
-        ))}
-        {/* Trailing spacer so last card isn't flush to edge */}
-        <div className="flex-none w-1" aria-hidden />
+          )
+        })}
       </div>
 
       {/* Prev arrow */}
@@ -109,7 +110,7 @@ export default function ServiceCarousel({ photos, serviceLabel }: ServiceCarouse
             transition={{ duration: 0.2 }}
             onClick={() => scroll('prev')}
             aria-label="Fyrri mynd"
-            className="absolute left-0 top-[38%] -translate-y-1/2 -translate-x-1 z-10
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1 z-10
                        w-10 h-10 flex items-center justify-center
                        bg-parchment-50/90 backdrop-blur-sm border border-parchment-200
                        text-parchment-800 hover:bg-parchment-50 transition-colors duration-200
@@ -133,7 +134,7 @@ export default function ServiceCarousel({ photos, serviceLabel }: ServiceCarouse
             transition={{ duration: 0.2 }}
             onClick={() => scroll('next')}
             aria-label="Næsta mynd"
-            className="absolute right-0 top-[38%] -translate-y-1/2 translate-x-1 z-10
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1 z-10
                        w-10 h-10 flex items-center justify-center
                        bg-parchment-50/90 backdrop-blur-sm border border-parchment-200
                        text-parchment-800 hover:bg-parchment-50 transition-colors duration-200
@@ -148,7 +149,6 @@ export default function ServiceCarousel({ photos, serviceLabel }: ServiceCarouse
 
       {/* Counter */}
       <div className="mt-5 flex items-center justify-between">
-        {/* Dot indicators (up to 10) */}
         <div className="flex gap-1.5">
           {photos.slice(0, 10).map((_, i) => (
             <button
@@ -169,7 +169,6 @@ export default function ServiceCarousel({ photos, serviceLabel }: ServiceCarouse
             />
           ))}
         </div>
-
         <span className="text-xs font-sans text-parchment-400 tabular-nums">
           {current + 1} / {photos.length}
         </span>

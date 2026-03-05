@@ -129,6 +129,7 @@ export async function getGalleriesWithPhotos(): Promise<Gallery[]> {
         title,
         image { ${IMAGE_FIELDS} },
         "lqip": image.asset->metadata.lqip,
+        "dimensions": image.asset->metadata.dimensions,
         alt,
         caption,
         order,
