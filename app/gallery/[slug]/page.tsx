@@ -36,10 +36,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const canonical = gallery.seo?.canonicalUrl ?? `${SITE_URL}/gallery/${slug}`
 
-  // OG image: prefer seo.ogImage → coverImage
-  const ogImageSrc = gallery.seo?.ogImage
-    ? urlFor(gallery.seo.ogImage).width(1200).height(630).fit('crop').auto('format').url()
-    : urlFor(gallery.coverImage).width(1200).height(630).fit('crop').auto('format').url()
+  // OG image: prefer seo.ogImage → coverImage — guard against missing asset
+  const ogImageSource = gallery.seo?.ogImage?.asset
+    ? gallery.seo.ogImage
+    : gallery.coverImage?.asset
+    ? gallery.coverImage
+    : null
+
+  const ogImageSrc = ogImageSource
+    ? urlFor(ogImageSource).width(1200).height(630).fit('crop').auto('format').url()
+    : null
 
   return {
     title,
@@ -50,13 +56,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description,
       url: canonical,
       type: 'website',
-      images: [{ url: ogImageSrc, width: 1200, height: 630, alt: gallery.title }],
+      ...(ogImageSrc && {
+        images: [{ url: ogImageSrc, width: 1200, height: 630, alt: gallery.title }],
+      }),
     },
     twitter: {
       card: 'summary_large_image',
       title: `${title} | ${SITE_NAME}`,
       description,
-      images: [ogImageSrc],
+      ...(ogImageSrc && { images: [ogImageSrc] }),
     },
   }
 }
