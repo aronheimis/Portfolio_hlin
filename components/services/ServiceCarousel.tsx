@@ -6,11 +6,16 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { urlFor } from '@/lib/sanity/image'
 import type { Photo } from '@/types'
 
-const DISPLAY_HEIGHT = 520 // px — all images share this height
-
 interface ServiceCarouselProps {
   photos: Photo[]
   serviceLabel: string
+}
+
+function getDisplayHeight() {
+  if (typeof window === 'undefined') return 520
+  if (window.innerWidth < 640) return 260
+  if (window.innerWidth < 1024) return 380
+  return 520
 }
 
 export default function ServiceCarousel({ photos, serviceLabel }: ServiceCarouselProps) {
@@ -18,6 +23,7 @@ export default function ServiceCarousel({ photos, serviceLabel }: ServiceCarouse
   const [current, setCurrent] = useState(0)
   const [canPrev, setCanPrev] = useState(false)
   const [canNext, setCanNext] = useState(true)
+  const [displayHeight, setDisplayHeight] = useState(520)
 
   const updateState = useCallback(() => {
     const track = trackRef.current
@@ -34,12 +40,16 @@ export default function ServiceCarousel({ photos, serviceLabel }: ServiceCarouse
   useEffect(() => {
     const track = trackRef.current
     if (!track) return
-    updateState()
+    const onResize = () => {
+      setDisplayHeight(getDisplayHeight())
+      updateState()
+    }
+    onResize()
     track.addEventListener('scroll', updateState, { passive: true })
-    window.addEventListener('resize', updateState)
+    window.addEventListener('resize', onResize)
     return () => {
       track.removeEventListener('scroll', updateState)
-      window.removeEventListener('resize', updateState)
+      window.removeEventListener('resize', onResize)
     }
   }, [updateState])
 
@@ -72,20 +82,20 @@ export default function ServiceCarousel({ photos, serviceLabel }: ServiceCarouse
         {photos.map((photo) => {
           // Use real aspect ratio from Sanity metadata; fall back to 3:4 portrait
           const ratio = photo.dimensions?.aspectRatio ?? 0.75
-          const displayWidth = Math.round(DISPLAY_HEIGHT * ratio)
+          const displayWidth = Math.round(displayHeight * ratio)
 
           return (
             <div key={photo._id} className="flex-none snap-start">
               <Image
                 src={urlFor(photo.image)
-                  .height(DISPLAY_HEIGHT * 2)
+                  .height(displayHeight * 2)
                   .auto('format')
                   .url()}
                 alt={photo.alt || photo.title || serviceLabel}
                 width={displayWidth}
-                height={DISPLAY_HEIGHT}
+                height={displayHeight}
                 className="block"
-                style={{ height: DISPLAY_HEIGHT, width: displayWidth }}
+                style={{ height: displayHeight, width: displayWidth }}
                 placeholder={photo.lqip ? 'blur' : 'empty'}
                 blurDataURL={photo.lqip}
               />
@@ -110,8 +120,8 @@ export default function ServiceCarousel({ photos, serviceLabel }: ServiceCarouse
             transition={{ duration: 0.2 }}
             onClick={() => scroll('prev')}
             aria-label="Fyrri mynd"
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1 z-10
-                       w-10 h-10 flex items-center justify-center
+            className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1 z-10
+                       w-10 h-10 items-center justify-center
                        bg-parchment-50/90 backdrop-blur-sm border border-parchment-200
                        text-parchment-800 hover:bg-parchment-50 transition-colors duration-200
                        shadow-sm"
@@ -134,8 +144,8 @@ export default function ServiceCarousel({ photos, serviceLabel }: ServiceCarouse
             transition={{ duration: 0.2 }}
             onClick={() => scroll('next')}
             aria-label="Næsta mynd"
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1 z-10
-                       w-10 h-10 flex items-center justify-center
+            className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 translate-x-1 z-10
+                       w-10 h-10 items-center justify-center
                        bg-parchment-50/90 backdrop-blur-sm border border-parchment-200
                        text-parchment-800 hover:bg-parchment-50 transition-colors duration-200
                        shadow-sm"
