@@ -12,9 +12,14 @@ export default function Footer({ settings }: FooterProps) {
   return (
     <footer className="border-t border-parchment-200 bg-parchment-50">
       <div className="max-w-7xl mx-auto px-6 lg:px-12 py-12">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+        {/*
+          3-column grid: equal outer columns (1fr each) + auto-width centre.
+          This keeps the nav truly centred regardless of how wide the brand
+          name or social links are. On mobile everything stacks and centres.
+        */}
+        <div className="flex flex-col items-center gap-6 md:grid md:grid-cols-[1fr_auto_1fr] md:items-center md:gap-0">
 
-          {/* Brand */}
+          {/* Brand — left column */}
           <Link
             href="/"
             className="font-serif text-base tracking-[0.15em] uppercase text-parchment-900 hover:text-parchment-600 transition-colors duration-300"
@@ -22,10 +27,11 @@ export default function Footer({ settings }: FooterProps) {
             {settings?.siteTitle ?? 'Hlín Guðmundsdóttir'}
           </Link>
 
-          {/* Nav */}
-          <nav className="flex flex-wrap justify-center gap-x-8 gap-y-3">
+          {/* Nav — centre column, truly centred */}
+          <nav className="flex flex-wrap justify-center gap-x-8 gap-y-3 md:px-10">
             {[
               { href: '/services', label: 'Þjónusta' },
+              { href: '/verdskra', label: 'Verðskrá' },
               { href: '/about', label: 'Um mig' },
               { href: '/contact', label: 'Hafa samband' },
             ].map(({ href, label }) => (
@@ -39,8 +45,8 @@ export default function Footer({ settings }: FooterProps) {
             ))}
           </nav>
 
-          {/* Social */}
-          <div className="flex items-center gap-6">
+          {/* Social — right column, pushed to the end */}
+          <div className="flex items-center justify-end gap-6">
             {settings?.instagramUrl && (
               <a
                 href={settings.instagramUrl}

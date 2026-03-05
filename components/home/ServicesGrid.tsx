@@ -53,7 +53,7 @@ export default function ServicesGrid({ services, galleries }: Props) {
           <motion.div key={service.value} variants={card}>
             <Link
               href={`/services#${service.value}`}
-              className="group block bg-parchment-100 overflow-hidden"
+              className="group block"
             >
               {/* Thumbnail */}
               <div className="relative aspect-square overflow-hidden bg-parchment-100">
@@ -83,7 +83,7 @@ export default function ServicesGrid({ services, galleries }: Props) {
               </div>
 
               {/* Label */}
-              <div className="px-4 py-4">
+              <div className="mt-3">
                 <p className="font-serif text-base font-light text-parchment-900 group-hover:text-parchment-600 transition-colors duration-300">
                   {service.label}
                 </p>
