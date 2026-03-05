@@ -173,6 +173,12 @@ export async function getGalleryBySlug(slug: string): Promise<Gallery | null> {
       serviceCategory,
       publishedAt,
       featured,
+      seo {
+        seoTitle,
+        seoDescription,
+        ogImage { ${IMAGE_FIELDS} },
+        canonicalUrl,
+      },
       "photos": photos[]->{
         _id,
         title,

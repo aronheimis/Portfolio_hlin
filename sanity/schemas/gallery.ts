@@ -70,6 +70,12 @@ export const gallerySchema = defineType({
       type: 'number',
       description: 'Lægri tala = fyrr í röð innan flokks.',
     }),
+    defineField({
+      name: 'seo',
+      title: 'SEO stillingar',
+      type: 'seo',
+      description: 'Valfrjálst — hnekkir sjálfgefnum SEO titli og lýsingu fyrir þetta safn.',
+    }),
   ],
   orderings: [
     {

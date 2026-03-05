@@ -3,17 +3,33 @@ import { getSiteSettings } from '@/lib/sanity/queries'
 import PageHeader from '@/components/ui/PageHeader'
 import ContactForm from '@/components/contact/ContactForm'
 import AnimatedSection from '@/components/ui/AnimatedSection'
+import JsonLd from '@/components/JsonLd'
+import { buildPhotographerJsonLd } from '@/lib/seo'
 
 export const metadata: Metadata = {
   title: 'Hafa samband',
-  description: 'Hafðu samband við Hlínu Guðmundsdóttur til að ræða verkefni þitt.',
+  description:
+    'Hafðu samband við Hlínu Guðmundsdóttur, ljósmyndara í Reykjavík. Við skulum ræða verkefni þitt – portrett, brúðkaup, fjölskylda eða viðburðir.',
+  alternates: { canonical: '/contact' },
+  openGraph: {
+    title: 'Hafa samband | Hlín Guðmundsdóttir – Ljósmyndari Reykjavík',
+    description:
+      'Hafðu samband við Hlínu Guðmundsdóttur, ljósmyndara í Reykjavík. Við skulum ræða verkefni þitt.',
+  },
 }
 
 export default async function ContactPage() {
   const settings = await getSiteSettings()
 
+  const jsonLd = buildPhotographerJsonLd({
+    instagramUrl: settings?.instagramUrl,
+    description: settings?.description,
+  })
+
   return (
     <>
+      <JsonLd data={jsonLd} />
+
       <PageHeader
         title="Hafa samband"
         subtitle="Við skulum ræða verkefni þitt"

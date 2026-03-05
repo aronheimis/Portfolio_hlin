@@ -65,6 +65,15 @@ export const SERVICES: ServiceCategory[] = [
   },
 ]
 
+// ─── SEO fields (matches sanity/schemas/seo.ts) ───────────────────────────────
+
+export interface SeoFields {
+  seoTitle?: string
+  seoDescription?: string
+  ogImage?: SanityImage
+  canonicalUrl?: string
+}
+
 export interface SanityImageAsset {
   _id: string
   url: string
@@ -134,6 +143,7 @@ export interface Gallery {
   photos?: Photo[]
   featured: boolean
   order?: number
+  seo?: SeoFields
 }
 
 export interface SiteSettings {

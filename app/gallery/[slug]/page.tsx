@@ -1,7 +1,9 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { getGalleryBySlug, getAllGallerySlugs } from '@/lib/sanity/queries'
+import { urlFor } from '@/lib/sanity/image'
 import { SERVICES } from '@/types'
+import { SITE_URL, SITE_NAME } from '@/lib/siteConfig'
 import AnimatedSection from '@/components/ui/AnimatedSection'
 import GalleryGrid from '@/components/gallery/GalleryGrid'
 
@@ -22,15 +24,39 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const serviceName = SERVICES.find((s) => s.value === gallery.serviceCategory)?.label
 
+  // Prefer Sanity SEO overrides, fall back to gallery content
+  const title =
+    gallery.seo?.seoTitle ??
+    `${gallery.title}${serviceName ? ` – ${serviceName}` : ''}`
+
+  const description =
+    gallery.seo?.seoDescription ??
+    gallery.description ??
+    `${gallery.title}${serviceName ? ` — ${serviceName}` : ''} eftir Hlínu Guðmundsdóttur, ljósmyndara í Reykjavík.`
+
+  const canonical = gallery.seo?.canonicalUrl ?? `${SITE_URL}/gallery/${slug}`
+
+  // OG image: prefer seo.ogImage → coverImage
+  const ogImageSrc = gallery.seo?.ogImage
+    ? urlFor(gallery.seo.ogImage).width(1200).height(630).fit('crop').auto('format').url()
+    : urlFor(gallery.coverImage).width(1200).height(630).fit('crop').auto('format').url()
+
   return {
-    title: gallery.title,
-    description:
-      gallery.description ??
-      `${gallery.title}${serviceName ? ` — ${serviceName}` : ''} eftir Hlínu Guðmundsdóttur.`,
+    title,
+    description,
+    alternates: { canonical },
     openGraph: {
-      title: gallery.title,
-      description: gallery.description,
+      title: `${title} | ${SITE_NAME}`,
+      description,
+      url: canonical,
       type: 'website',
+      images: [{ url: ogImageSrc, width: 1200, height: 630, alt: gallery.title }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${title} | ${SITE_NAME}`,
+      description,
+      images: [ogImageSrc],
     },
   }
 }

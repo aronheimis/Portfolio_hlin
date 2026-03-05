@@ -8,7 +8,14 @@ import { SERVICES } from '@/types'
 
 export const metadata: Metadata = {
   title: 'Þjónusta',
-  description: 'Yfirlit yfir ljósmyndaþjónustu Hlínar Guðmundsdóttur.',
+  description:
+    'Portrettmyndatökur, brúðkaupsljósmyndun, fjölskyldurmyndir, viðburðir og vöruljósmyndun í Reykjavík. Hlín Guðmundsdóttir – fagleg ljósmyndun með náttúrulegum stíl.',
+  alternates: { canonical: '/services' },
+  openGraph: {
+    title: 'Þjónusta | Hlín Guðmundsdóttir',
+    description:
+      'Portrettmyndatökur, brúðkaupsljósmyndun, fjölskyldurmyndir, viðburðir og vöruljósmyndun í Reykjavík.',
+  },
 }
 
 export default async function ServicesPage() {

@@ -7,7 +7,14 @@ import PortableText from '@/components/ui/PortableText'
 
 export const metadata: Metadata = {
   title: 'Um mig',
-  description: 'Kynning á Hlínu Guðmundsdóttur, faglegri ljósmyndari í Reykjavík.',
+  description:
+    'Hlín Guðmundsdóttir er fagleg ljósmyndari með aðsetur í Reykjavík. Hún tekur portrett-, fjölskyldu- og viðburðamyndir með hlýlegum og náttúrulegum stíl.',
+  alternates: { canonical: '/about' },
+  openGraph: {
+    title: 'Um mig | Hlín Guðmundsdóttir – Ljósmyndari Reykjavík',
+    description:
+      'Hlín Guðmundsdóttir er fagleg ljósmyndari með aðsetur í Reykjavík. Hún tekur portrett-, fjölskyldu- og viðburðamyndir með hlýlegum og náttúrulegum stíl.',
+  },
 }
 
 export default async function AboutPage() {
