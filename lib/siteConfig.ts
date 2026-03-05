@@ -7,10 +7,10 @@ export const SITE_URL =
 export const SITE_NAME = 'Hlín Guðmundsdóttir'
 export const SITE_NAME_SHORT = 'Hlín'
 
-// ─── Default SEO copy (Icelandic, targeting "ljósmyndari Reykjavík") ─────────
+// ─── Default SEO copy ────────────────────────────────────────────────────────
 
 export const DEFAULT_TITLE =
-  'Ljósmyndari Reykjavík | Portrett, fjölskyldu & viðburðir – Hlín'
+  'Hlín Guðmundsdóttir | Ljósmyndari – Portrett, Brúðkaup, Viðburðir & Vörur'
 
 export const DEFAULT_DESCRIPTION =
   'Ég er ljósmyndari í Reykjavík og á höfuðborgarsvæðinu og tek portrett-, fjölskyldu-, para- og viðburðamyndir með náttúrulegum og tímalausum stíl.'
