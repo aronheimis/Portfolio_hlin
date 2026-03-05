@@ -1,0 +1,115 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Custom properties ─────────────────────────────────────────────────────── */
+:root {
+  --bg: #faf7f2;
+  --fg: #1a1916;
+  --muted: #6b5a45;
+  --border: #e8ddd0;
+  --accent: #8b7355;
+}
+
+/* ─── Base styles ────────────────────────────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+  background-color: var(--bg);
+  color: var(--fg);
+}
+
+body {
+  @apply font-sans antialiased;
+  background-color: var(--bg);
+  color: var(--fg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Scrollbar ──────────────────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
+/* ─── Typography ─────────────────────────────────────────────────────────────── */
+h1,
+h2,
+h3,
+h4 {
+  @apply font-serif;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+
+/* ─── Focus styles ───────────────────────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ─── Selection ──────────────────────────────────────────────────────────────── */
+::selection {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+/* ─── Reduced motion ─────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ─── Image utilities ────────────────────────────────────────────────────────── */
+.img-hover {
+  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.img-hover:hover {
+  transform: scale(1.03);
+}
+
+/* ─── Masonry columns ────────────────────────────────────────────────────────── */
+.masonry-grid {
+  columns: 1;
+  column-gap: 1rem;
+}
+@media (min-width: 640px) {
+  .masonry-grid {
+    columns: 2;
+  }
+}
+@media (min-width: 1024px) {
+  .masonry-grid {
+    columns: 3;
+  }
+}
+.masonry-item {
+  break-inside: avoid;
+  margin-bottom: 1rem;
+}
+
+/* ─── Portable text (about page) ─────────────────────────────────────────────── */
+.prose-custom p {
+  @apply text-base leading-relaxed mb-5;
+  color: var(--muted);
+}
+.prose-custom strong {
+  color: var(--fg);
+  font-weight: 500;
+}
