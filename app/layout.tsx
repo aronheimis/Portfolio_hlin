@@ -1,8 +1,7 @@
 import type { Metadata } from 'next'
 import { Cormorant_Garamond, DM_Sans } from 'next/font/google'
 import './globals.css'
-import Header from '@/components/layout/Header'
-import Footer from '@/components/layout/Footer'
+import SiteChrome from '@/components/layout/SiteChrome'
 import { getSiteSettings } from '@/lib/sanity/queries'
 
 const cormorant = Cormorant_Garamond({
@@ -56,9 +55,9 @@ export default async function RootLayout({
       className={`${cormorant.variable} ${dmSans.variable}`}
     >
       <body className="min-h-screen flex flex-col bg-parchment-50 text-parchment-900">
-        <Header settings={settings} />
-        <main className="flex-1">{children}</main>
-        <Footer settings={settings} />
+        <SiteChrome settings={settings}>
+          {children}
+        </SiteChrome>
       </body>
     </html>
   )
