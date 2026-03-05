@@ -1,8 +1,6 @@
 import { Resend } from 'resend'
 import { NextRequest, NextResponse } from 'next/server'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
-
 // Simple in-memory rate limiter (resets on cold start; fine for Vercel)
 const rateLimitMap = new Map<string, { count: number; windowStart: number }>()
 const RATE_LIMIT_COUNT = 3
@@ -40,6 +38,15 @@ export async function POST(req: NextRequest) {
       { status: 429 }
     )
   }
+
+  if (!process.env.RESEND_API_KEY) {
+    return NextResponse.json(
+      { error: 'Contact form is not configured yet.' },
+      { status: 503 }
+    )
+  }
+
+  const resend = new Resend(process.env.RESEND_API_KEY)
 
   const body = await req.json()
   const { name, email, subject, message, website } = body
