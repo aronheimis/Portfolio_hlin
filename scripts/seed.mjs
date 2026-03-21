@@ -86,11 +86,29 @@ const GALLERIES = [
 async function seed() {
   console.log('\n🌱  Seeding Sanity with gallery folders...\n')
 
-  // Check what already exists so we don't create duplicates
+  // Fetch all existing galleries
   const existing = await client.fetch(
+    `*[_type == "gallery"]{ _id, serviceCategory, title }`
+  )
+
+  const newCategoryValues = new Set(GALLERIES.map((g) => g.serviceCategory))
+
+  // Delete galleries whose serviceCategory is no longer in the new lineup
+  let deleted = 0
+  for (const g of existing) {
+    if (!newCategoryValues.has(g.serviceCategory)) {
+      await client.delete(g._id)
+      console.log(`  🗑  Deleted  — ${g.title ?? g.serviceCategory} (old category)`)
+      deleted++
+    }
+  }
+  if (deleted > 0) console.log()
+
+  // Re-fetch after deletions
+  const remaining = await client.fetch(
     `*[_type == "gallery"]{ serviceCategory }`
   )
-  const existingCategories = new Set(existing.map((g) => g.serviceCategory))
+  const existingCategories = new Set(remaining.map((g) => g.serviceCategory))
 
   let created = 0
   let skipped = 0
@@ -118,7 +136,7 @@ async function seed() {
     created++
   }
 
-  console.log(`\n✨  Done. ${created} created, ${skipped} skipped.\n`)
+  console.log(`\n✨  Done. ${deleted} deleted, ${created} created, ${skipped} skipped.\n`)
   console.log('   Open /admin → Söfn / Verkefni to see your galleries.\n')
   console.log('   Next steps:')
   console.log('   1. Upload photos in Ljósmyndir')
