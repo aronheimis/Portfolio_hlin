@@ -11,19 +11,11 @@ interface ServiceCarouselProps {
   serviceLabel: string
 }
 
-function getDisplayHeight() {
-  if (typeof window === 'undefined') return 520
-  if (window.innerWidth < 640) return 260
-  if (window.innerWidth < 1024) return 380
-  return 520
-}
-
 export default function ServiceCarousel({ photos, serviceLabel }: ServiceCarouselProps) {
   const trackRef = useRef<HTMLDivElement>(null)
   const [current, setCurrent] = useState(0)
   const [canPrev, setCanPrev] = useState(false)
   const [canNext, setCanNext] = useState(true)
-  const [displayHeight, setDisplayHeight] = useState(520)
 
   const updateState = useCallback(() => {
     const track = trackRef.current
@@ -31,7 +23,6 @@ export default function ServiceCarousel({ photos, serviceLabel }: ServiceCarouse
     const { scrollLeft, scrollWidth, clientWidth } = track
     setCanPrev(scrollLeft > 4)
     setCanNext(scrollLeft < scrollWidth - clientWidth - 4)
-    // Approximate current index using first child width
     const firstChild = track.children[0] as HTMLElement | undefined
     const itemWidth = firstChild ? firstChild.offsetWidth + 16 : 1
     setCurrent(Math.round(scrollLeft / itemWidth))
@@ -40,16 +31,12 @@ export default function ServiceCarousel({ photos, serviceLabel }: ServiceCarouse
   useEffect(() => {
     const track = trackRef.current
     if (!track) return
-    const onResize = () => {
-      setDisplayHeight(getDisplayHeight())
-      updateState()
-    }
-    onResize()
+    updateState()
     track.addEventListener('scroll', updateState, { passive: true })
-    window.addEventListener('resize', onResize)
+    window.addEventListener('resize', updateState)
     return () => {
       track.removeEventListener('scroll', updateState)
-      window.removeEventListener('resize', onResize)
+      window.removeEventListener('resize', updateState)
     }
   }, [updateState])
 
@@ -73,31 +60,28 @@ export default function ServiceCarousel({ photos, serviceLabel }: ServiceCarouse
 
   return (
     <div className="relative">
-      {/* Scrollable track */}
+      {/* Track — height set via CSS so layout is stable from first paint (no hydration reflow) */}
       <div
         ref={trackRef}
-        className="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory"
+        className="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory h-[260px] sm:h-[380px] lg:h-[520px]"
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
       >
         {photos.map((photo) => {
-          // Use real aspect ratio from Sanity metadata; fall back to 3:4 portrait
           const ratio = photo.dimensions?.aspectRatio ?? 0.75
-          const displayWidth = Math.round(displayHeight * ratio)
-
           return (
-            <div key={photo._id} className="flex-none snap-start">
+            <div
+              key={photo._id}
+              className="relative flex-none snap-start h-full"
+              style={{ aspectRatio: String(ratio) }}
+            >
               <Image
-                src={urlFor(photo.image)
-                  .height(displayHeight * 2)
-                  .auto('format')
-                  .url()}
+                src={urlFor(photo.image).height(1040).auto('format').url()}
                 alt={photo.alt || photo.title || serviceLabel}
-                width={displayWidth}
-                height={displayHeight}
-                className="block"
-                style={{ height: displayHeight, width: displayWidth }}
+                fill
+                className="object-cover"
                 placeholder={photo.lqip ? 'blur' : 'empty'}
                 blurDataURL={photo.lqip}
+                sizes="(max-width: 640px) 200px, (max-width: 1024px) 290px, 400px"
               />
             </div>
           )
