@@ -22,7 +22,7 @@ export default function ServiceSection({ service, galleries, description }: Serv
   const displayDescription = description ?? service.description
 
   return (
-    <section id={service.value} className="scroll-mt-36 md:scroll-mt-40">
+    <section id={service.value} style={{ scrollMarginTop: 'var(--scroll-offset, 160px)' }}>
       {/* Section header */}
       <div className="mb-10">
         <h2 className="font-serif text-4xl md:text-5xl font-light text-parchment-900 mb-4">

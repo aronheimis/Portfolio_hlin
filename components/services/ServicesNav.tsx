@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useLayoutEffect, useRef } from 'react'
 import type { ServiceCategory } from '@/types'
 
 /** Walk the offsetParent chain to get an element's distance from the page top.
@@ -23,6 +23,23 @@ interface ServicesNavProps {
 export default function ServicesNav({ services }: ServicesNavProps) {
   const [active, setActive] = useState<string>(services[0]?.value ?? '')
   const navRef = useRef<HTMLDivElement>(null)
+
+  // Set --scroll-offset on <html> so sections can use it as scroll-margin-top.
+  // useLayoutEffect fires synchronously before paint — before the browser
+  // processes any hash-scroll — so the variable is always correct when needed.
+  useLayoutEffect(() => {
+    const update = () => {
+      const headerH = document.querySelector('header')?.offsetHeight ?? 80
+      const navH = navRef.current?.offsetHeight ?? 52
+      document.documentElement.style.setProperty(
+        '--scroll-offset',
+        `${headerH + navH + 16}px`
+      )
+    }
+    update()
+    window.addEventListener('resize', update)
+    return () => window.removeEventListener('resize', update)
+  }, [])
 
   // Highlight the section currently in view
   useEffect(() => {
