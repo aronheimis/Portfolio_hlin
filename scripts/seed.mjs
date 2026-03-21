@@ -44,10 +44,16 @@ const GALLERIES = [
     description: 'Náttúrulegar fjölskyldumyndir á útivist eða í heimili.',
   },
   {
-    title: 'Meðgöngu- og ungbarnamyndataka',
-    serviceCategory: 'medgongu-og-ungbarnamyndataka',
-    slug: 'medgongu-og-ungbarnamyndataka',
-    description: 'Fagleg og hlýleg myndataka á meðgöngu og fyrstu dögum nýbura.',
+    title: 'Meðgöngumyndataka',
+    serviceCategory: 'medgongumyndataka',
+    slug: 'medgongumyndataka',
+    description: 'Fagleg og hlýleg myndataka sem fangar þessa sérstöku stund á meðgöngunni.',
+  },
+  {
+    title: 'Ungbarnamyndataka',
+    serviceCategory: 'ungbarnamyndataka',
+    slug: 'ungbarnamyndataka',
+    description: 'Hlín fangar fyrstu daga nýbura — augnablik sem fjölskyldur geyma um langan aldur.',
   },
   {
     title: 'Skírnarmyndataka',

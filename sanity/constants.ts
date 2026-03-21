@@ -1,7 +1,8 @@
 export const SERVICE_CATEGORY_OPTIONS = [
   { value: 'portrettmyndataka', title: 'Portrettmyndataka' },
   { value: 'fjolskyldumyndataka', title: 'Fjölskyldumyndataka' },
-  { value: 'medgongu-og-ungbarnamyndataka', title: 'Meðgöngu- og ungbarnamyndataka' },
+  { value: 'medgongumyndataka', title: 'Meðgöngumyndataka' },
+  { value: 'ungbarnamyndataka', title: 'Ungbarnamyndataka' },
   { value: 'skirnarmyndataka', title: 'Skírnarmyndataka' },
   { value: 'brudkaupsmyndataka', title: 'Brúðkaupsmyndataka' },
   { value: 'starfsmannamyndataka', title: 'Starfsmannamyndataka' },

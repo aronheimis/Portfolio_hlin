@@ -1,7 +1,8 @@
 export type ServiceCategoryValue =
   | 'portrettmyndataka'
   | 'fjolskyldumyndataka'
-  | 'medgongu-og-ungbarnamyndataka'
+  | 'medgongumyndataka'
+  | 'ungbarnamyndataka'
   | 'skirnarmyndataka'
   | 'brudkaupsmyndataka'
   | 'starfsmannamyndataka'
@@ -27,10 +28,16 @@ export const SERVICES: ServiceCategory[] = [
       'Náttúrulegar fjölskyldumyndir á útivist eða í heimili. Hlín skapar hlýlegt andrúmsloft þar sem kjarni fjölskyldunnar kemur fram.',
   },
   {
-    value: 'medgongu-og-ungbarnamyndataka',
-    label: 'Meðgöngu- og ungbarnamyndataka',
+    value: 'medgongumyndataka',
+    label: 'Meðgöngumyndataka',
     description:
-      'Fagleg og hlýleg myndataka sem fangar þessa sérstöku stund — bæði meðgöngu og fyrstu daga nýbura.',
+      'Fagleg og hlýleg myndataka sem fangar þessa sérstöku stund á meðgöngunni.',
+  },
+  {
+    value: 'ungbarnamyndataka',
+    label: 'Ungbarnamyndataka',
+    description:
+      'Hlín fangar fyrstu daga nýbura — augnablik sem fjölskyldur geyma um langan aldur.',
   },
   {
     value: 'skirnarmyndataka',
