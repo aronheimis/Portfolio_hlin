@@ -1,10 +1,9 @@
 export const SERVICE_CATEGORY_OPTIONS = [
-  { value: 'stjornendamyndatokur', title: 'Stjórnendamyndatökur' },
-  { value: 'starfsmannamyndatokur', title: 'Starfsmannamyndatökur' },
-  { value: 'idn-og-heimildaljósmyndun', title: 'Iðn- og Heimildaljósmyndun' },
-  { value: 'vidburadaljósmyndun', title: 'Viðburðaljósmyndun' },
-  { value: 'voruljósmyndun', title: 'Vöruljósmyndun' },
-  { value: 'fermingamyndir', title: 'Fermingamyndir' },
-  { value: 'fjolskyldurmyndir', title: 'Fjölskyldurmyndir' },
-  { value: 'brudkaup', title: 'Brúðkaup' },
+  { value: 'portrettmyndataka', title: 'Portrettmyndataka' },
+  { value: 'fjolskyldumyndataka', title: 'Fjölskyldumyndataka' },
+  { value: 'medgongu-og-ungbarnamyndataka', title: 'Meðgöngu- og ungbarnamyndataka' },
+  { value: 'skirnarmyndataka', title: 'Skírnarmyndataka' },
+  { value: 'brudkaupsmyndataka', title: 'Brúðkaupsmyndataka' },
+  { value: 'starfsmannamyndataka', title: 'Starfsmannamyndataka' },
+  { value: 'ithrottaljósmyndun', title: 'Íþróttaljósmyndun' },
 ]

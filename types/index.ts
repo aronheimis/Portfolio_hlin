@@ -1,12 +1,11 @@
 export type ServiceCategoryValue =
-  | 'stjornendamyndatokur'
-  | 'starfsmannamyndatokur'
-  | 'idn-og-heimildaljósmyndun'
-  | 'vidburadaljósmyndun'
-  | 'voruljósmyndun'
-  | 'fermingamyndir'
-  | 'fjolskyldurmyndir'
-  | 'brudkaup'
+  | 'portrettmyndataka'
+  | 'fjolskyldumyndataka'
+  | 'medgongu-og-ungbarnamyndataka'
+  | 'skirnarmyndataka'
+  | 'brudkaupsmyndataka'
+  | 'starfsmannamyndataka'
+  | 'ithrottaljósmyndun'
 
 export interface ServiceCategory {
   value: ServiceCategoryValue
@@ -16,52 +15,46 @@ export interface ServiceCategory {
 
 export const SERVICES: ServiceCategory[] = [
   {
-    value: 'stjornendamyndatokur',
-    label: 'Stjórnendamyndatökur',
+    value: 'portrettmyndataka',
+    label: 'Portrettmyndataka',
     description:
-      'Faglegar portrettmyndir af stjórnendum og leiðtogum fyrirtækja. Hlín skapar myndir sem endurspegla bæði fagmennsku og einstaklingssérkenni.',
+      'Hlín skapar einlægar og náttúrulegar portrettmyndir sem endurspegla persónuleika og einstaklingssérkenni hvers og eins.',
   },
   {
-    value: 'starfsmannamyndatokur',
-    label: 'Starfsmannamyndatökur',
+    value: 'fjolskyldumyndataka',
+    label: 'Fjölskyldumyndataka',
     description:
-      'Heildstæðar myndir af starfsfólki sem sýna menninguna og líf fyrirtækisins. Hentar bæði fyrir vefsíður og markaðsefni.',
+      'Náttúrulegar fjölskyldumyndir á útivist eða í heimili. Hlín skapar hlýlegt andrúmsloft þar sem kjarni fjölskyldunnar kemur fram.',
   },
   {
-    value: 'idn-og-heimildaljósmyndun',
-    label: 'Iðn- og Heimildaljósmyndun',
+    value: 'medgongu-og-ungbarnamyndataka',
+    label: 'Meðgöngu- og ungbarnamyndataka',
     description:
-      'Skjölun á iðnaði, framleiðsluferlum og sérhæfðum verkum. Myndir sem segja sögu vinnunnar.',
+      'Fagleg og hlýleg myndataka sem fangar þessa sérstöku stund — bæði meðgöngu og fyrstu daga nýbura.',
   },
   {
-    value: 'vidburadaljósmyndun',
-    label: 'Viðburðaljósmyndun',
+    value: 'skirnarmyndataka',
+    label: 'Skírnarmyndataka',
     description:
-      'Hlín fangar sérhvert augnablik á ráðstefnum, opnunum og viðburðum með nákvæmni og þögulu handlagi.',
+      'Hlín fangar þessa merkilegu stund í lífi barnsins og fjölskyldunnar með hlýlegum og vandvirkum hætti.',
   },
   {
-    value: 'voruljósmyndun',
-    label: 'Vöruljósmyndun',
+    value: 'brudkaupsmyndataka',
+    label: 'Brúðkaupsmyndataka',
     description:
-      'Myndir sem kynna vörur þínar í besta ljósi. Frá hreinum hvítum bakgrunni yfir í lífsstílsmyndir.',
+      'Hlín fylgist með hverju augnabliki brúðkaupsins og flytur fram tilfinningarnar með listrænum og náttúrulegum hætti.',
   },
   {
-    value: 'fermingamyndir',
-    label: 'Fermingamyndir',
+    value: 'starfsmannamyndataka',
+    label: 'Starfsmannamyndataka',
     description:
-      'Hlín hefur þjálfun í að búa til hlýlegar og vandvirktar fermingamyndir sem fjölskyldur geta geymt um langan aldur.',
+      'Faglegar portrett- og starfsmannamyndir sem sýna menninguna og líf fyrirtækisins. Hentar bæði fyrir vefsíður og markaðsefni.',
   },
   {
-    value: 'fjolskyldurmyndir',
-    label: 'Fjölskyldurmyndir',
+    value: 'ithrottaljósmyndun',
+    label: 'Íþróttaljósmyndun',
     description:
-      'Náttúrulegar fjölskylduímyndir á útivist eða í heimili. Hlín skapar slakandi andrúmsloft þar sem kjarni fjölskyldunnar kemur fram.',
-  },
-  {
-    value: 'brudkaup',
-    label: 'Brúðkaup',
-    description:
-      'Hlín fylgist með hverju augnabliki brúðkaupsins með hlutlægu auganu og flytur fram tilfinningarnar með listrænum hætti.',
+      'Hlín hefur reynslu af íþróttaljósmyndun fyrir Frjálsíþróttasamband Íslands og fangar hreyfingu og kraft íþróttafólks.',
   },
 ]
 

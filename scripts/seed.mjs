@@ -1,5 +1,5 @@
 /**
- * Sanity seed script — creates all 8 gallery folders ready for photos.
+ * Sanity seed script — creates all 7 gallery folders ready for photos.
  *
  * Usage:
  *   1. Add SANITY_API_WRITE_TOKEN to your .env.local (needs Editor permission)
@@ -28,56 +28,50 @@ const client = createClient({
   useCdn: false,
 })
 
-// ─── The 8 service galleries ──────────────────────────────────────────────────
+// ─── The 7 service galleries ──────────────────────────────────────────────────
 
 const GALLERIES = [
   {
-    title: 'Stjórnendamyndatökur',
-    serviceCategory: 'stjornendamyndatokur',
-    slug: 'stjornendamyndatokur',
-    description: 'Faglegar portrettmyndir af stjórnendum og leiðtogum fyrirtækja.',
+    title: 'Portrettmyndataka',
+    serviceCategory: 'portrettmyndataka',
+    slug: 'portrettmyndataka',
+    description: 'Einlægar og náttúrulegar portrettmyndir sem endurspegla persónuleika hvers og eins.',
   },
   {
-    title: 'Starfsmannamyndatökur',
-    serviceCategory: 'starfsmannamyndatokur',
-    slug: 'starfsmannamyndatokur',
-    description: 'Heildstæðar myndir af starfsfólki sem sýna menningu fyrirtækisins.',
+    title: 'Fjölskyldumyndataka',
+    serviceCategory: 'fjolskyldumyndataka',
+    slug: 'fjolskyldumyndataka',
+    description: 'Náttúrulegar fjölskyldumyndir á útivist eða í heimili.',
   },
   {
-    title: 'Iðn- og Heimildaljósmyndun',
-    serviceCategory: 'idn-og-heimildaljósmyndun',
-    slug: 'idn-og-heimildaljósmyndun',
-    description: 'Skjölun á iðnaði, framleiðsluferlum og sérhæfðum verkum.',
+    title: 'Meðgöngu- og ungbarnamyndataka',
+    serviceCategory: 'medgongu-og-ungbarnamyndataka',
+    slug: 'medgongu-og-ungbarnamyndataka',
+    description: 'Fagleg og hlýleg myndataka á meðgöngu og fyrstu dögum nýbura.',
   },
   {
-    title: 'Viðburðaljósmyndun',
-    serviceCategory: 'vidburadaljósmyndun',
-    slug: 'vidburadaljósmyndun',
-    description: 'Hlín fangar sérhvert augnablik á ráðstefnum, opnunum og viðburðum.',
+    title: 'Skírnarmyndataka',
+    serviceCategory: 'skirnarmyndataka',
+    slug: 'skirnarmyndataka',
+    description: 'Hlýleg myndataka af skírn barnsins og fjölskyldunnar.',
   },
   {
-    title: 'Vöruljósmyndun',
-    serviceCategory: 'voruljósmyndun',
-    slug: 'voruljósmyndun',
-    description: 'Myndir sem kynna vörur þínar í besta ljósi.',
+    title: 'Brúðkaupsmyndataka',
+    serviceCategory: 'brudkaupsmyndataka',
+    slug: 'brudkaupsmyndataka',
+    description: 'Hlín flytur fram tilfinningarnar á brúðkaupsdag með listrænum og náttúrulegum hætti.',
   },
   {
-    title: 'Fermingamyndir',
-    serviceCategory: 'fermingamyndir',
-    slug: 'fermingamyndir',
-    description: 'Hlýlegar og vandvirktar fermingamyndir.',
+    title: 'Starfsmannamyndataka',
+    serviceCategory: 'starfsmannamyndataka',
+    slug: 'starfsmannamyndataka',
+    description: 'Faglegar portrett- og starfsmannamyndir fyrir vefsíður og markaðsefni.',
   },
   {
-    title: 'Fjölskyldurmyndir',
-    serviceCategory: 'fjolskyldurmyndir',
-    slug: 'fjolskyldurmyndir',
-    description: 'Náttúrulegar fjölskylduímyndir á útivist eða í heimili.',
-  },
-  {
-    title: 'Brúðkaup',
-    serviceCategory: 'brudkaup',
-    slug: 'brudkaup',
-    description: 'Hlín flytur fram tilfinningarnar á brúðkaupsdag með listrænum hætti.',
+    title: 'Íþróttaljósmyndun',
+    serviceCategory: 'ithrottaljósmyndun',
+    slug: 'ithrottaljósmyndun',
+    description: 'Myndataka af íþróttaviðburðum og íþróttafólki.',
   },
 ]
 

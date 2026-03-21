@@ -22,7 +22,7 @@ export interface ServicePricing {
 
 export const PRICING: ServicePricing[] = [
   {
-    slug: 'fjolskyldurmyndir',
+    slug: 'fjolskyldumyndataka',
     title: 'Fjölskyldumyndataka',
     packages: [
       {
@@ -59,7 +59,7 @@ export const PRICING: ServicePricing[] = [
     ],
   },
   {
-    slug: 'brudkaup',
+    slug: 'brudkaupsmyndataka',
     title: 'Brúðkaupsmyndataka',
     packages: [
       {
