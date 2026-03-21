@@ -40,30 +40,15 @@ export default async function AboutPage() {
           {/* ── Text ───────────────────────────────────────────────────── */}
           <AnimatedSection delay={0.1}>
             <div className="space-y-8">
-              <p className="font-serif text-2xl md:text-3xl font-light leading-relaxed text-parchment-900">
-                {settings?.aboutShort ??
-                  'Hlín Guðmundsdóttir er fagleg ljósmyndari með aðsetur í Reykjavík, Íslandi.'}
-              </p>
+              {settings?.aboutShort && (
+                <p className="font-serif text-2xl md:text-3xl font-light leading-relaxed text-parchment-900">
+                  {settings.aboutShort}
+                </p>
+              )}
 
-              {aboutLong && aboutLong.length > 0 ? (
+              {aboutLong && aboutLong.length > 0 && (
                 <div className="prose-custom">
                   <PortableText value={aboutLong} />
-                </div>
-              ) : (
-                <div className="prose-custom space-y-5">
-                  <p>
-                    Með áratuga reynslu í faglegri ljósmyndun hefur Hlín sérfræðiþekkingu
-                    á fjölmörgum sviðum — frá portrettmyndum og viðburðum til brúðkaups og
-                    vöruljósmyndunar.
-                  </p>
-                  <p>
-                    Hlín leggur áherslu á að skapa hlýlegt og slakandi andrúmsloft þar
-                    sem náttúrulegar tilfinningar fá að koma fram. Niðurstaðan eru myndir
-                    sem þú geymir um langan aldur.
-                  </p>
-                  <p>
-                    Haft samband til að ræða verkefni þitt.
-                  </p>
                 </div>
               )}
 
